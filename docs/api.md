@@ -45,6 +45,10 @@ const data = await nitroFetchOnWorklet('https://httpbin.org/get', undefined, map
 
 - Enqueues a request to be prefetched at the next app start by writing into native storage under `nitrofetch_autoprefetch_queue`. Replayed on the next cold start on both Android and iOS.
 
+## `clearPrefetch(prefetchKey)` / `clearAllPrefetch()`
+
+- Drop one stored prefetch response, or every stored prefetch response.
+
 ## `removeFromAutoPrefetch(prefetchKey)` / `removeAllFromAutoprefetch()`
 
 - Utilities to manage the auto-prefetch queue.

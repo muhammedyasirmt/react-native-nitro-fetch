@@ -127,6 +127,17 @@ await removeFromAutoPrefetch('home-feed');
 
 If you don't, the next cold start will fire the prefetch with stale credentials.
 
+### Clear a stored response
+
+`clearPrefetch` and `clearAllPrefetch` drop a stored prefetch response and return. Nothing else.
+
+```ts
+import { clearPrefetch, clearAllPrefetch } from 'react-native-nitro-fetch';
+
+clearPrefetch('home-feed');
+clearAllPrefetch();
+```
+
 ### Fetching tokens for cross-start prefetches
 
 A `prefetchOnAppStart` entry is replayed by **native code, before JS runs**. That's the whole point — but it means there's no JS runtime around to mint a fresh access token. The package solves this with `registerTokenRefresh`: you describe a refresh endpoint and how to map its response into headers, and the native bootstrap calls it on cold start before replaying the queue.

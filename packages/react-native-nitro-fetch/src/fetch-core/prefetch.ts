@@ -41,6 +41,21 @@ export async function prefetch(
   await client.prefetch(req);
 }
 
+// Drop one stored prefetch response.
+export function clearPrefetch(prefetchKey: string): void {
+  if (!prefetchKey) return;
+  const client = ensureClient();
+  if (!client || typeof (client as any).clearPrefetch !== 'function') return;
+  client.clearPrefetch(prefetchKey);
+}
+
+// Drop every stored prefetch response.
+export function clearAllPrefetch(): void {
+  const client = ensureClient();
+  if (!client || typeof (client as any).clearAllPrefetch !== 'function') return;
+  client.clearAllPrefetch();
+}
+
 const AUTOPREFETCH_QUEUE_KEY = 'nitrofetch_autoprefetch_queue';
 
 // Persist a request to storage so native can prefetch it on app start.

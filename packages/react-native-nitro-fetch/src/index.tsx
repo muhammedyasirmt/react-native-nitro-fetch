@@ -3,6 +3,8 @@ export {
   nitroFetchOnWorklet,
   prefetch,
   prefetchOnAppStart,
+  clearPrefetch,
+  clearAllPrefetch,
   removeFromAutoPrefetch,
   removeAllFromAutoprefetch,
   __readAutoPrefetchQueue,

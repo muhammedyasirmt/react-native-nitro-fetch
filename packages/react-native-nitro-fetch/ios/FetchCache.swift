@@ -56,4 +56,16 @@ final class FetchCache {
     results.removeValue(forKey: key)
     return nil
   }
+
+  static func clear(_ key: String) {
+    lock.lock()
+    results.removeValue(forKey: key)
+    lock.unlock()
+  }
+
+  static func clearAll() {
+    lock.lock()
+    results.removeAll()
+    lock.unlock()
+  }
 }

@@ -22,6 +22,14 @@ const res = await fetch('https://httpbin.org/uuid', { headers: { prefetchKey: 'u
 console.log(res.headers.get('nitroPrefetched')); // 'true' if prefetched
 ```
 
+- Drop a stored prefetch response:
+
+```ts
+import { clearPrefetch, clearAllPrefetch } from 'react-native-nitro-fetch';
+clearPrefetch('uuid');
+clearAllPrefetch();
+```
+
 Auto-Prefetch (on next app start)
 
 - Queue a request in NativeStorage so native can prefetch on next startup:

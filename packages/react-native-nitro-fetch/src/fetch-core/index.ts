@@ -5,6 +5,8 @@ export { nitroFetch } from './fetch';
 export {
   prefetch,
   prefetchOnAppStart,
+  clearPrefetch,
+  clearAllPrefetch,
   removeFromAutoPrefetch,
   removeAllFromAutoprefetch,
   __readAutoPrefetchQueue,

@@ -39,6 +39,14 @@ abstract class HybridNitroFetchClientSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
+  abstract fun clearPrefetch(prefetchKey: String): Unit
+  
+  @DoNotStrip
+  @Keep
+  abstract fun clearAllPrefetch(): Unit
+  
+  @DoNotStrip
+  @Keep
   abstract fun requestSync(req: NitroRequest): NitroResponse
   
   @DoNotStrip

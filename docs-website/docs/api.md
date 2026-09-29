@@ -62,6 +62,10 @@ Enqueues a request to be prefetched at the next app start by writing into native
 Enqueued requests are stored in native storage and automatically executed on the next app start on both platforms.
 :::
 
+## clearPrefetch / clearAllPrefetch
+
+Drop one stored prefetch response, or every stored prefetch response.
+
 ## removeFromAutoPrefetch / removeAllFromAutoprefetch
 
 Utilities to manage the auto-prefetch queue.

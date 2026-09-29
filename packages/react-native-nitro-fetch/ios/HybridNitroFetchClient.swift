@@ -31,6 +31,14 @@ final class HybridNitroFetchClient: HybridNitroFetchClientSpec {
     task?.cancel()
   }
 
+  func clearPrefetch(prefetchKey: String) throws {
+    FetchCache.clear(prefetchKey)
+  }
+
+  func clearAllPrefetch() throws {
+    FetchCache.clearAll()
+  }
+
   func requestSync(req: NitroRequest) throws -> NitroResponse {
     let semaphore = DispatchSemaphore(value: 0)
     var result: Result<NitroResponse, Error>?

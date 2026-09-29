@@ -4,6 +4,8 @@ import {
   fetch as nitroFetch,
   prefetch,
   prefetchOnAppStart,
+  clearPrefetch,
+  clearAllPrefetch,
   removeAllFromAutoprefetch,
 } from 'react-native-nitro-fetch';
 import { theme } from '../theme';
@@ -154,6 +156,24 @@ export function PrefetchScreen() {
       );
     } catch (e: any) {
       addLog(`❌ Native prefetch consume error: ${e?.message ?? String(e)}`);
+    }
+  };
+
+  const handleClearCachedKey = () => {
+    try {
+      clearPrefetch(PREFETCH_KEY);
+      addLog(`✅ Cleared cached prefetch key=${PREFETCH_KEY}`);
+    } catch (e: any) {
+      addLog(`❌ Clear cached key error: ${e?.message ?? String(e)}`);
+    }
+  };
+
+  const handleClearAllCached = () => {
+    try {
+      clearAllPrefetch();
+      addLog('✅ Cleared all cached prefetch responses');
+    } catch (e: any) {
+      addLog(`❌ Clear cached error: ${e?.message ?? String(e)}`);
     }
   };
 
@@ -342,6 +362,23 @@ export function PrefetchScreen() {
             <Text style={[styles.buttonSub, styles.primaryBtnSub]}>
               Reads prefetched data
             </Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.row}>
+          <Pressable
+            style={[styles.button, styles.dangerBtn]}
+            onPress={handleClearCachedKey}
+          >
+            <Text style={styles.buttonText}>Clear Cached Key</Text>
+            <Text style={styles.buttonSub}>Drops key "{PREFETCH_KEY}"</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, styles.dangerBtn]}
+            onPress={handleClearAllCached}
+          >
+            <Text style={styles.buttonText}>Clear All Cached</Text>
+            <Text style={styles.buttonSub}>Drops every cached response</Text>
           </Pressable>
         </View>
 

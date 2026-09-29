@@ -54,4 +54,12 @@ object FetchCache {
     pending.clear()
     results.clear()
   }
+
+  fun clear(key: String) {
+    results.remove(key)
+  }
+
+  fun clearAll() {
+    results.clear()
+  }
 }

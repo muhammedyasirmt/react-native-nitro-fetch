@@ -131,6 +131,14 @@ class HybridNitroFetchClient(private val engine: CronetEngine, private val execu
     activeRequests.remove(requestId)?.cancel()
   }
 
+  override fun clearPrefetch(prefetchKey: String) {
+    FetchCache.clear(prefetchKey)
+  }
+
+  override fun clearAllPrefetch() {
+    FetchCache.clearAll()
+  }
+
   private fun findPrefetchKey(req: NitroRequest): String? {
     val h = req.headers ?: return null
     for (pair in h) {

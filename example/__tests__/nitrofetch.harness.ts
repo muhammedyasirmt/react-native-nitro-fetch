@@ -4,6 +4,8 @@ import {
   nitroFetchOnWorklet,
   prefetch,
   prefetchOnAppStart,
+  clearPrefetch,
+  clearAllPrefetch,
   removeFromAutoPrefetch,
   __readAutoPrefetchQueue,
 } from 'react-native-nitro-fetch';
@@ -465,6 +467,85 @@ describe('NitroFetch - Prefetch', () => {
 
   it('prefetch with init.prefetchKey resolves without error', async () => {
     await prefetch(`${BASE}/get`, { prefetchKey: 'test-key-init' } as any);
+  });
+
+  it('clearPrefetch drops one stored response and leaves the other', async () => {
+    const stamp = String(Date.now());
+    const keyA = `clear-a-${stamp}`;
+    const keyB = `clear-b-${stamp}`;
+    const init = (key: string) =>
+      ({
+        headers: { prefetchKey: key },
+        prefetchCacheTtlMs: 60_000,
+      }) as any;
+
+    await prefetch(`${BASE}/get`, init(keyA));
+    await prefetch(`${BASE}/get`, init(keyB));
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyA))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBe('true');
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyB))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBe('true');
+    // Android consumes on read, so store the responses again before clearing.
+    await prefetch(`${BASE}/get`, init(keyA));
+    await prefetch(`${BASE}/get`, init(keyB));
+
+    clearPrefetch(keyA);
+
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyA))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBeNull();
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyB))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBe('true');
+  });
+
+  it('clearAllPrefetch drops every stored response', async () => {
+    const stamp = String(Date.now());
+    const keyA = `clear-all-a-${stamp}`;
+    const keyB = `clear-all-b-${stamp}`;
+    const init = (key: string) =>
+      ({
+        headers: { prefetchKey: key },
+        prefetchCacheTtlMs: 60_000,
+      }) as any;
+
+    await prefetch(`${BASE}/get`, init(keyA));
+    await prefetch(`${BASE}/get`, init(keyB));
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyA))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBe('true');
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyB))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBe('true');
+    await prefetch(`${BASE}/get`, init(keyA));
+    await prefetch(`${BASE}/get`, init(keyB));
+
+    clearAllPrefetch();
+
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyA))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBeNull();
+    expect(
+      (await nitroFetch(`${BASE}/get`, init(keyB))).headers.get(
+        'nitroPrefetched'
+      )
+    ).toBeNull();
   });
 });
 

@@ -56,6 +56,8 @@ namespace margelo::nitro::nitrofetch {
     // Methods
     std::shared_ptr<Promise<NitroResponse>> request(const NitroRequest& req) override;
     std::shared_ptr<Promise<void>> prefetch(const NitroRequest& req) override;
+    void clearPrefetch(const std::string& prefetchKey) override;
+    void clearAllPrefetch() override;
     NitroResponse requestSync(const NitroRequest& req) override;
     void cancelRequest(const std::string& requestId) override;
 

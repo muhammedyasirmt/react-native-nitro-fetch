@@ -78,6 +78,15 @@ const res = await fetch('https://httpbin.org/uuid', {
 console.log('prefetched header:', res.headers.get('nitroPrefetched'))
 ```
 
+Drop a stored prefetch response:
+
+```ts
+import { clearPrefetch, clearAllPrefetch } from 'react-native-nitro-fetch'
+
+clearPrefetch('uuid')
+clearAllPrefetch()
+```
+
 ### Prefetching for the next app launch
 
 Prefetching data on app launch (or _process start_) will make it hot & ready once your JS code actually runs. Call `prefetchOnAppStart(...)` to enqueue a prefetch for the **next** app start:

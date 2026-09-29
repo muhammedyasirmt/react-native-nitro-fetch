@@ -38,6 +38,17 @@ await removeFromAutoPrefetch('uuid');
 await removeAllFromAutoprefetch();
 ```
 
+## Clear cached responses
+
+`clearPrefetch` and `clearAllPrefetch` drop a stored prefetch response and return.
+
+```ts
+import { clearPrefetch, clearAllPrefetch } from 'react-native-nitro-fetch';
+
+clearPrefetch('uuid');
+clearAllPrefetch();
+```
+
 Notes
 
 - Prefetch is best-effort; if native is unavailable, calls are ignored or fall back to JS fetch.

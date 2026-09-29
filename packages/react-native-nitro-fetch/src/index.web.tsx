@@ -140,6 +140,14 @@ export async function prefetchOnAppStart(
   console.warn('prefetchOnAppStart is not available on web');
 }
 
+export function clearPrefetch(_prefetchKey: string): void {
+  console.warn('clearPrefetch is not available on web');
+}
+
+export function clearAllPrefetch(): void {
+  console.warn('clearAllPrefetch is not available on web');
+}
+
 export async function removeFromAutoPrefetch(
   _prefetchKey: string
 ): Promise<void> {

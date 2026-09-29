@@ -106,6 +106,18 @@ namespace margelo::nitro::nitrofetch {
       auto __value = std::move(__result.value());
       return __value;
     }
+    inline void clearPrefetch(const std::string& prefetchKey) override {
+      auto __result = _swiftPart.clearPrefetch(prefetchKey);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void clearAllPrefetch() override {
+      auto __result = _swiftPart.clearAllPrefetch();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
     inline NitroResponse requestSync(const NitroRequest& req) override {
       auto __result = _swiftPart.requestSync(std::forward<decltype(req)>(req));
       if (__result.hasError()) [[unlikely]] {
